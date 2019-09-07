@@ -31,10 +31,16 @@ class OptionTest extends FunSuite {
   }
 
 
-  test("Should flat Map"){
-    val defaultValue = 66
-    val input:Option[Int] = None
-    assert(input.flatMap() == defaultValue)
+  test("should lift/wrap existing function to give back option"){
+
+    val existingFunction = (age:Int,numberOfTickets:Int) => age * numberOfTickets
+    val optionAge:Option[Int] = Some(10)
+    val numberOfTickets:Option[Int] = Some(3)
+
+    val result = Option.map2(optionAge, numberOfTickets)(existingFunction)
+    val expected = Some(30)
+    assert(result == expected)
+
   }
 
 }
